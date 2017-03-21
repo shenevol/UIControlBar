@@ -8,6 +8,7 @@
             align-items: center;
             background-color: palegoldenrod;
             font-family: sans-serif;
+            min-height: 100vh;
         }
         .wrapper {
             display:flex;
@@ -24,6 +25,7 @@
             left: 40px;
             border-radius: 50px;
             overflow:hidden;
+            align-items: flex-start;
         }
 
         .control-bar {
@@ -36,7 +38,6 @@
             justify-content: center;
         }
 
-        
         </style>
     </head>
     <body>
@@ -47,6 +48,29 @@
                 <div class="control-bar">1X</div>
             </div>
         </div>
-        
     </body>
+    <script>
+        const slider = document.querySelector('.slider');
+        const controlBar = document.querySelector('.control-bar');
+        const video = document.querySelector('.video');
+
+
+        slider.addEventListener('mousemove', function(e) {
+
+            const realMove = e.pageY - this.offsetTop;
+            const percent = realMove / this.offsetHeight;
+            const height = Math.round(percent * 100) + '%';
+
+            const min = 0.4;
+            const max = 4;
+            const playbackRate = percent * (max-min) + min;
+            console.log(Math.round(percent*100));
+            
+
+            controlBar.style.height = height; 
+            controlBar.textContent =` ${playbackRate.toFixed(2)}x`;
+            
+        });
+
+    </script>
 </html>
