@@ -11,6 +11,7 @@
             min-height: 100vh;
         }
         .wrapper {
+            width: 850px;
             display:flex;
         }
 
@@ -19,23 +20,23 @@
         }
 
         .slider {
-            width: 60px;
             background-color: white;
-            position: relative;
-            left: 40px;
+            flex:1;
+            display:flex;
+            align-items: flex-start;
+            margin: 10px;
             border-radius: 50px;
             overflow:hidden;
-            align-items: flex-start;
         }
 
         .control-bar {
-            width:100%;
-            height: 20%;
-            background: linear-gradient(45deg, #c16ecf 10%, #2376ae 100%);
-            color: white;
+            width: 100%;
+            background: linear-gradient(45deg, #c16ecf 10%, #2376ae 100%);        
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            height: 16.3%;
         }
 
         </style>
@@ -51,26 +52,27 @@
     </body>
     <script>
         const slider = document.querySelector('.slider');
-        const controlBar = document.querySelector('.control-bar');
+        const controlBar = slider.querySelector('.control-bar');
         const video = document.querySelector('.video');
 
-
-        slider.addEventListener('mousemove', function(e) {
-
+        function handleMove(e){
             const realMove = e.pageY - this.offsetTop;
             const percent = realMove / this.offsetHeight;
             const height = Math.round(percent * 100) + '%';
-
+            console.log(height);
+            
             const min = 0.4;
             const max = 4;
             const playbackRate = percent * (max-min) + min;
-            console.log(Math.round(percent*100));
-            
+
+           
 
             controlBar.style.height = height; 
             controlBar.textContent =` ${playbackRate.toFixed(2)}x`;
             
-        });
+        }
+
+        slider.addEventListener('mousemove', handleMove);
 
     </script>
 </html>
